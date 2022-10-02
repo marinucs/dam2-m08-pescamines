@@ -1,0 +1,63 @@
+for(index in tauler.indices) {
+        random()
+}
+
+for((index, casella) in tauler.withIndex()) {
+        random()
+}
+
+for (i in tauler.indices) {
+    if(!(casella.getMines())) {
+            tauler[Random.nextInt(0, 25)][Random.nextInt(0, 25)] =
+    }
+}
+
+tauler[i][j] = ((Int).random())
+
+val a = arrayOf<Int>(1, 2)
+val b = arrayOf<Int>(3, 4)
+
+val c : Array<Array<Int>> = arrayOf(a, b)
+
+for (i in 0 until c.size) {
+    for (j in 0 until c[i].size) {
+        c[i][j] = 100 //just an example
+    }
+}
+
+And if you print out the values like so:
+
+for (i in 0 until c.size) {
+    for (j in 0 until c[i].size) {
+        d("TAG", "the value at " + i.toString() + "-" + j.toString() + " is: " + c[i][j].toString())
+    }
+}
+
+fun descobert() : Boolean {
+    var taulerDescobert = false
+    var cont : Int = 0
+    for (i in tauler.indices) {
+        for (j in 0 until tauler[i].size) {
+            // if(tauler[i][j].getDescoberta() && tauler[i][j].getEsMina()) taulerDescobert = true
+            if(tauler[i][j].getDescoberta() && !tauler[i][j].getEsMina()) {
+                cont++;
+            }
+
+        }
+    }
+
+    if(cont==numCaselles*numCaselles-numMines) {
+                taulerDescobert = true
+    }
+
+    return taulerDescobert
+}
+
+fun descobert() : Boolean {
+    for (i in 0 until numCaselles) {
+        for (j in 0 until numCaselles) {
+            if (!tauler[i][j].getDescoberta() && !tauler[i][j].getEsMina()) return false
+        }
+    }
+    return true
+}

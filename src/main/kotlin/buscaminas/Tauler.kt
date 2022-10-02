@@ -8,7 +8,7 @@ class Tauler(private var numCaselles : Int = 0,
 
     private var tauler = Array(numCaselles) { Array(numCaselles) { Casella() } }
 
-    fun posaMines() {
+    private fun posaMines() {
         for (i in 0 until numMines) {
             var fila : Int = 0
             var col : Int = 0
@@ -24,7 +24,7 @@ class Tauler(private var numCaselles : Int = 0,
         }
     }
 
-    fun comptaMines() {
+    private fun comptaMines() {
         for (fila in 0 until numCaselles) {
             for (col in 0 until numCaselles) {
                 var top = if (fila-1 >= 0) fila-1 else 0
@@ -35,9 +35,9 @@ class Tauler(private var numCaselles : Int = 0,
         }
     }
 
-    fun hiHaMina (fila : Int, col : Int) = tauler[fila][col].getEsMina()
+    private fun hiHaMina (fila : Int, col : Int) = tauler[fila][col].getEsMina()
 
-    fun descobert() : Boolean {
+    private fun descobert() : Boolean {
         for (i in 0 until numCaselles) {
             for (j in 0 until numCaselles) {
                 if (!tauler[i][j].getDescoberta() && !tauler[i][j].getEsMina()) return false
@@ -46,9 +46,9 @@ class Tauler(private var numCaselles : Int = 0,
         return true
     }
 
-    fun descobreixCasella(fila : Int, col : Int) = tauler[fila][col].setDescoberta()
+    private fun descobreixCasella(fila : Int, col : Int) = tauler[fila][col].setDescoberta()
 
-    fun descobreixTauler() {
+    private fun descobreixTauler() {
         for (i in tauler.indices) {
             for (j in 0 until tauler[i].size) {
                 descobreixCasella(i,j)
@@ -56,14 +56,14 @@ class Tauler(private var numCaselles : Int = 0,
         }
     }
 
-    fun descoberta(fila : Int, col : Int)  = tauler[fila][col].getDescoberta()
+    private fun descoberta(fila : Int, col : Int)  = tauler[fila][col].getDescoberta()
 
-    fun marcaMina(fila : Int, col : Int) = tauler[fila][col].setMarcaMina()
+    private fun marcaMina(fila : Int, col : Int) = tauler[fila][col].setMarcaMina()
 
-    fun minaMarcada(fila : Int, col : Int) = tauler[fila][col].getMinaMarcada()
+    private fun minaMarcada(fila : Int, col : Int) = tauler[fila][col].getMinaMarcada()
 
-    override fun toString(): String {
-        return "";
+    override fun toString() : String {
+        return ""
     }
 
 }
