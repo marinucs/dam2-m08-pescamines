@@ -1,5 +1,6 @@
 # IDEA
 .idea/workspace.xml
+src/main/kotlin/buscaminas/notas.txt
 
 # Default ignored files
 /shelf/
