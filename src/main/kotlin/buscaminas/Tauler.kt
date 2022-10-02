@@ -1,0 +1,4 @@
+package buscaminas
+
+class Tauler {
+}
