@@ -14,12 +14,14 @@ object Main {
     Introduce un número del 1 al 26: 
     """.trimIndent()
         )
+
         do {
             medidaTablero = sc.nextInt()
             if (medidaTablero < 1 || medidaTablero > 25) {
                 println("Introduce una medida correcta: ")
             }
         } while (medidaTablero < 1 || medidaTablero > 25)
+
         val minPorcentaje = 15 / medidaTablero * 100
         val maxPorcentaje = 50 / medidaTablero * 100
         println(
@@ -28,6 +30,7 @@ object Main {
     Introduce un número del 1 al $maxPorcentaje: 
     """.trimIndent()
         )
+
         do {
             nMinas = sc.nextInt()
             if (nMinas < minPorcentaje || nMinas > maxPorcentaje) {
@@ -59,7 +62,6 @@ object Main {
 
             } else if (eleccion.equals("CFM", ignoreCase = true)) {
                 tauler.marcaMina(fila, col)
-                tauler.comptaMines()
                 
             } else println("ELECCIÓN INCORRECTA")
             

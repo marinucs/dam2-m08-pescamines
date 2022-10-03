@@ -6,10 +6,13 @@ class Tauler(private var numCaselles : Int = 0,
 
     private var tauler = Array(numCaselles) { Array(numCaselles) { Casella() } }
 
+    init {
+        posaMines()
+        comptaMines()
+    }
     fun posaMines() {
 
         for (i in 0 until numMines) {
-
             var fila : Int
             var col : Int
 
@@ -25,13 +28,12 @@ class Tauler(private var numCaselles : Int = 0,
         }
     }
 
-    fun comptaMines() {
+    private fun comptaMines() {
 
         for (fila in 0 until numCaselles) {
 
             for (col in 0 until numCaselles) {
-
-                var numMinesVeines : Int
+                var numMinesVeines : Int = 0
 
                 val top = if (fila-1 >= 0)
                     fila-1 else 0
@@ -45,14 +47,11 @@ class Tauler(private var numCaselles : Int = 0,
                 val left = if (col-1 >= 0)
                     col-1 else 0
 
-                numMinesVeines = top+bot+right+left
+                for (row in top .. bot) {
 
-                for (row in 0 until numMinesVeines) {
-                    tauler[fila][col].setNumMinesVeines(numMinesVeines)
-
-                    for (column in 0 until numMinesVeines) {
-                        tauler[fila][col].setNumMinesVeines(numMinesVeines)
-
+                    for (column in left .. right) {
+                        if(tauler[row][column].getEsMina()) numMinesVeines++
+                            tauler[fila][col].setNumMinesVeines(numMinesVeines)
                     }
                 }
             }
@@ -79,9 +78,8 @@ class Tauler(private var numCaselles : Int = 0,
 
     fun descobreixTauler() {
 
-        for (i in tauler.indices) {
-
-            for (j in 0 until tauler[i].size) {
+        for (i in 0 until numCaselles) {
+            for (j in 0 until numCaselles) {
                 descobreixCasella(i,j)
             }
         }
