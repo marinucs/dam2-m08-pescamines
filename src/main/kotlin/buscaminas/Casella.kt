@@ -9,7 +9,7 @@ class Casella (
     fun getEsMina() = esMina
 
     fun setEsMina() {
-        if(!esMina) this.esMina = true
+        this.esMina = true
     }
 
     fun getDescoberta() = estaDescoberta
@@ -24,22 +24,32 @@ class Casella (
         estaMarcada = !estaMarcada
     }
 
-    fun getNumMinesVeines() = numMinesVeines
+    private fun getNumMinesVeines() = numMinesVeines
 
     fun setNumMinesVeines(numMinesVeines : Int) {
         this.numMinesVeines = numMinesVeines
     }
 
     override fun toString(): String {
-        var valor : String = "";
+        var valor = ""
 
-        if(estaMarcada) valor = "*"
-        if(!estaDescoberta && !estaMarcada) valor = "·"
-        if(numMinesVeines == 0) valor = "0";
-        if(numMinesVeines in 1..8) valor = numMinesVeines.toString()
-        if(estaDescoberta) valor = "#"
+        if(estaMarcada)
+            valor = "*"
 
-        return valor;
+        if(!estaDescoberta && !estaMarcada)
+            valor = "·"
+
+        if(numMinesVeines == 0)
+            valor = "0"
+
+        if(getNumMinesVeines() in 1..8)
+            valor = getNumMinesVeines().toString()
+
+
+        if(estaDescoberta)
+            valor = "#"
+
+        return valor
     }
 
 }
