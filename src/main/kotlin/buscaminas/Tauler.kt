@@ -94,8 +94,25 @@ class Tauler(private var numCaselles : Int = 0,
     fun minaMarcada(fila : Int, col : Int) =
         tauler[fila][col].getMinaMarcada()
 
-    override fun toString(): String =
-        tauler.toString()
+    override fun toString(): String {
+        var ret = " "
+
+        for(i in tauler.indices) {
+            ret += " " + (i+97).toChar()
+        }
+
+        ret += "\n"
+
+        for(fila in tauler.indices){
+            ret += " " + (fila+97).toChar()
+
+            for(col in tauler.indices){
+                ret += tauler[fila][col].toString() + " ";
+            }
+            ret += "\n"
+        }
+        return ret
+    }
 
 }
 

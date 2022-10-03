@@ -45,7 +45,6 @@ class Casella (
         if(getNumMinesVeines() in 1..8)
             valor = getNumMinesVeines().toString()
 
-
         if(estaDescoberta)
             valor = "#"
 
