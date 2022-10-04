@@ -17,17 +17,17 @@ object Main {
 
         do {
             medidaTablero = sc.nextInt()
-            if (medidaTablero < 1 || medidaTablero > 25) {
+            if (medidaTablero < 1 || medidaTablero > 26) {
                 println("Introduce una medida correcta: ")
             }
         } while (medidaTablero < 1 || medidaTablero > 25)
 
-        val minPorcentaje = 15 / medidaTablero * 100
-        val maxPorcentaje = 50 / medidaTablero * 100
+        val minPorcentaje : Int = 15 * medidaTablero*medidaTablero / 100
+        val maxPorcentaje : Int = 50 * medidaTablero*medidaTablero / 100
         println(
             """
     NÚMERO DE MINAS
-    Introduce un número del 1 al $maxPorcentaje: 
+    Introduce un número del $minPorcentaje al $maxPorcentaje: 
     """.trimIndent()
         )
 

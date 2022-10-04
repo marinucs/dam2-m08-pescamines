@@ -12,13 +12,13 @@ class Tauler(private var numCaselles : Int = 0,
     }
     fun posaMines() {
 
-        for (i in 0 until numMines) {
+        for (i in 0 until numMines-1) {
             var fila : Int
             var col : Int
 
             while(true) {
-                fila = Random.nextInt(0, 26)
-                col = Random.nextInt(0, 26)
+                fila = Random.nextInt(0, numCaselles)
+                col = Random.nextInt(0, numCaselles)
 
                 if (!(tauler[fila][col].getEsMina())) {
                     tauler[fila][col].setEsMina()
@@ -77,7 +77,6 @@ class Tauler(private var numCaselles : Int = 0,
         tauler[fila][col].setDescoberta()
 
     fun descobreixTauler() {
-
         for (i in 0 until numCaselles) {
             for (j in 0 until numCaselles) {
                 descobreixCasella(i,j)
