@@ -1,13 +1,12 @@
 package buscaminas
 
-import java.util.*
+import java.util.Scanner;
 
-object Main {
-    @JvmStatic
     fun main(args: Array<String>) {
-        val sc = Scanner(System.`in`)
-        var nMinas: Int
-        var medidaTablero: Int
+
+        var nMinas: Int?
+        var medidaTablero: Int?
+
         println(
             """
     MEDIDA DEL TABLERO
@@ -16,14 +15,15 @@ object Main {
         )
 
         do {
-            medidaTablero = sc.nextInt()
-            if (medidaTablero < 1 || medidaTablero > 26) {
+            medidaTablero = readln().toIntOrNull()
+            if (medidaTablero == null || (medidaTablero < 1 || medidaTablero > 26)) {
                 println("Introduce una medida correcta: ")
             }
-        } while (medidaTablero < 1 || medidaTablero > 25)
+        } while (medidaTablero == null || (medidaTablero < 1 || medidaTablero > 25))
 
-        val minPorcentaje : Int = 15 * medidaTablero*medidaTablero / 100
-        val maxPorcentaje : Int = 50 * medidaTablero*medidaTablero / 100
+        val minPorcentaje : Int = 16 * medidaTablero * medidaTablero / 100
+        val maxPorcentaje : Int = 33 * medidaTablero * medidaTablero / 100
+
         println(
             """
     NÚMERO DE MINAS
@@ -32,16 +32,16 @@ object Main {
         )
 
         do {
-            nMinas = sc.nextInt()
-            if (nMinas < minPorcentaje || nMinas > maxPorcentaje) {
+            nMinas = readln().toIntOrNull()
+            if (nMinas == null || (nMinas < minPorcentaje || nMinas > maxPorcentaje)) {
                 println("Introduce un número de minas correcto: ")
             }
-        } while (nMinas < minPorcentaje || nMinas > maxPorcentaje)
+        } while (nMinas == null || (nMinas < minPorcentaje || nMinas > maxPorcentaje))
         val tauler = Tauler(medidaTablero, nMinas)
         tauler.posaMines()
 
-        var col: Int
-        var fila: Int
+        var col : Char ?
+        var fila : Char ?
         var eleccion : String
         var gameOver = false
 
@@ -53,25 +53,37 @@ object Main {
         )
         do {
             println(tauler)
-            eleccion = sc.nextLine()
-            fila = sc.nextInt()
-            col = sc.nextInt()
 
-            if (eleccion.equals("CF", ignoreCase = true)) {
-                tauler.descobreixCasella(fila, col)
+            do {
+                eleccion = readln()
+                if (!(eleccion[0].code in 97 until 97 + medidaTablero && eleccion[1].code in 97 until 97 + medidaTablero)) println("T PASAS")
+                if ((eleccion.length > 1 && eleccion[2] != '*')) println("Elección incorrecta. Para marcar una casilla, introduce columna y fila seguido de asterisco")
+            } while ( (eleccion.length > 1 && eleccion[2] != '*') || (!(eleccion[0].code in 97 until 97 + medidaTablero && eleccion[1].code in 97 until 97 + medidaTablero)) )
 
-            } else if (eleccion.equals("CFM", ignoreCase = true)) {
-                tauler.marcaMina(fila, col)
-                
-            } else println("ELECCIÓN INCORRECTA")
-            
-            if (tauler.descobert() ||
-                tauler.descoberta(fila, col) && tauler.hiHaMina(fila, col)) {
-                gameOver = true
-                tauler.descobreixTauler()
+            fila = eleccion[0]-97
+
+            col = eleccion[1]-97
+
+            when (eleccion.length) {
+                2 -> {
+                    tauler.descobreixCasella(fila.code, col.code)
+                }
+                3 -> tauler.marcaMina(fila.code, col.code)
+                else -> println("Elección incorrecta. El mínimo de carácteres es 2 y el máximo es de 3")
             }
 
+            if(tauler.descobert()) gameOver = true;
+
+            if (tauler.descoberta(fila.code, col.code) && tauler.hiHaMina(fila.code, col.code)) {
+                println("TOPASTE CON UNA MINA")
+                gameOver = true
+            }
+
+            if(gameOver) tauler.descobreixTauler()
+
         } while (!gameOver)
-        sc.close()
     }
-}
+
+
+
+

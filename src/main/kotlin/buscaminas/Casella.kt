@@ -31,22 +31,17 @@ class Casella (
     }
 
     override fun toString(): String {
-        var valor = ""
+        var valor = " "
 
-        if(estaMarcada)
-            valor = "*"
+        if(!estaDescoberta && !estaMarcada) valor = "·"
 
-        if(!estaDescoberta && !estaMarcada)
-            valor = "·"
+        else if(estaMarcada) valor = "*"
 
-        if(numMinesVeines == 0)
-            valor = "0"
+        else if(numMinesVeines == 0) valor = "0"
 
-        if(getNumMinesVeines() in 1..8)
-            valor = getNumMinesVeines().toString()
+        else if(getNumMinesVeines() in 1..8) valor = getNumMinesVeines().toString()
 
-        if(estaDescoberta)
-            valor = "#"
+        else if(esMina && estaDescoberta) valor = "#"
 
         return valor
     }
