@@ -46,9 +46,9 @@ import java.util.Scanner;
         var gameOver = false
 
         println(
-            """
-    Para descubrir una celda introduce CF 
-    Para marcarla introduce CFM, seguido de las coordenadas.
+            """ INSTRUCCIONES:
+                    Para descubrir la casilla, introduce las letras correspondientes a la fila y columna.
+                    Para marcarla, añade * tras las coordenadas.
     """.trimIndent()
         )
         do {
@@ -57,8 +57,8 @@ import java.util.Scanner;
             do {
                 eleccion = readln()
                 if (!(eleccion[0].code in 97 until 97 + medidaTablero && eleccion[1].code in 97 until 97 + medidaTablero)) println("T PASAS")
-                if ((eleccion.length > 1 && eleccion[2] != '*')) println("Elección incorrecta. Para marcar una casilla, introduce columna y fila seguido de asterisco")
-            } while ( (eleccion.length > 1 && eleccion[2] != '*') || (!(eleccion[0].code in 97 until 97 + medidaTablero && eleccion[1].code in 97 until 97 + medidaTablero)) )
+                if ( eleccion.length > 2 && eleccion[2] != '*') println("Elección incorrecta. Para marcar una casilla, introduce columna y fila seguido de asterisco")
+            } while ( (eleccion.length > 2 && eleccion[2] != '*') || (!(eleccion[0].code in 97 until 97 + medidaTablero && eleccion[1].code in 97 until 97 + medidaTablero)) )
 
             fila = eleccion[0]-97
 
@@ -69,6 +69,7 @@ import java.util.Scanner;
                     tauler.descobreixCasella(fila.code, col.code)
                 }
                 3 -> tauler.marcaMina(fila.code, col.code)
+
                 else -> println("Elección incorrecta. El mínimo de carácteres es 2 y el máximo es de 3")
             }
 
@@ -79,7 +80,10 @@ import java.util.Scanner;
                 gameOver = true
             }
 
-            if(gameOver) tauler.descobreixTauler()
+            if(gameOver) {
+                tauler.descobreixTauler()
+                println(tauler)
+            }
 
         } while (!gameOver)
     }
