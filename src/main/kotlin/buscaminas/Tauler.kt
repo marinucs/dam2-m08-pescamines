@@ -10,9 +10,9 @@ class Tauler(private var numCaselles : Int = 0,
         posaMines()
         comptaMines()
     }
-    fun posaMines() {
+    private fun posaMines() {
 
-        for (i in 0 until numMines-1) {
+        for (i in 0 until numMines) {
             var fila : Int
             var col : Int
 
@@ -33,7 +33,7 @@ class Tauler(private var numCaselles : Int = 0,
         for (fila in 0 until numCaselles) {
 
             for (col in 0 until numCaselles) {
-                var numMinesVeines : Int = 0
+                var numMinesVeines = 0
 
                 val top = if (fila-1 >= 0)
                     fila-1 else 0
