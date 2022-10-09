@@ -1,0 +1,158 @@
+for(index in tauler.indices) {
+        random()
+}
+
+----------------------------
+
+for((index, casella) in tauler.withIndex()) {
+        random()
+}
+
+----------------------------
+
+for (i in tauler.indices) {
+    if(!(casella.getMines())) {
+            tauler[Random.nextInt(0, 25)][Random.nextInt(0, 25)] =
+    }
+}
+
+tauler[i][j] = ((Int).random())
+
+----------------------------
+
+val a = arrayOf<Int>(1, 2)
+val b = arrayOf<Int>(3, 4)
+
+val c : Array<Array<Int>> = arrayOf(a, b)
+
+for (i in 0 until c.size) {
+    for (j in 0 until c[i].size) {
+        c[i][j] = 100 //just an example
+    }
+}
+
+And if you print out the values like so:
+
+for (i in 0 until c.size) {
+    for (j in 0 until c[i].size) {
+        d("TAG", "the value at " + i.toString() + "-" + j.toString() + " is: " + c[i][j].toString())
+    }
+}
+
+----------------------------
+
+fun descobert() : Boolean {
+    var taulerDescobert = false
+    var cont : Int = 0
+    for (i in tauler.indices) {
+        for (j in 0 until tauler[i].size) {
+            // if(tauler[i][j].getDescoberta() && tauler[i][j].getEsMina()) taulerDescobert = true
+            if(tauler[i][j].getDescoberta() && !tauler[i][j].getEsMina()) {
+                cont++;
+            }
+
+        }
+    }
+
+    if(cont==numCaselles*numCaselles-numMines) {
+                taulerDescobert = true
+    }
+
+    return taulerDescobert
+}
+
+----------------------------
+
+fun descobert() : Boolean {
+    for (i in 0 until numCaselles) {
+        for (j in 0 until numCaselles) {
+            if (!tauler[i][j].getDescoberta() && !tauler[i][j].getEsMina()) return false
+        }
+    }
+    return true
+}
+
+----------------------------
+
+override fun toString(): String {
+    var valor : String = "";
+
+    if(estaMarcada) valor = "*"
+    if(!estaDescoberta && !estaMarcada) valor = "·"
+    if(numMinesVeines == 0) valor = "0";
+    if(numMinesVeines in 1..8) valor = numMinesVeines.toString()
+    if(estaDescoberta) valor = "#"
+
+    valor = (if(estaMarcada) "*" else "·").toString()
+
+    return valor;
+}
+----------------------------
+    *** VERSIÓN JAVA ***
+----------------------------
+package buscaminas;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        int nMinas;
+        int medidaTablero;
+
+        System.out.println("MEDIDA DEL TABLERO\n"
+                + "Introduce un número del 1 al 26: ");
+
+        do {
+            medidaTablero = sc.nextInt();
+            if(medidaTablero<1 || medidaTablero > 25) {
+                System.out.println("Introduce una medida correcta: ");
+            }
+        } while(medidaTablero<1 || medidaTablero > 25);
+
+        int minPorcentaje = (15/medidaTablero) * 100;
+        int maxPorcentaje = (50/medidaTablero) * 100;
+
+        System.out.println("NÚMERO DE MINAS\n" +
+                "Introduce un número del 1 al " + maxPorcentaje + ": ");
+
+        do {
+            nMinas = sc.nextInt();
+            if(nMinas < minPorcentaje || nMinas > maxPorcentaje) {
+                System.out.println("Introduce un número de minas correcto: ");
+            }
+        } while(nMinas < minPorcentaje || nMinas > maxPorcentaje);
+
+        Tauler tauler = new Tauler(medidaTablero, nMinas);
+        tauler.posaMines();
+        System.out.println(tauler);
+
+        int col, fila;
+        String eleccion = "";
+        boolean gameOver = false;
+        System.out.println("Para descubrir una celda introduce CF \n" +
+                "Para marcarla introduce CFM, seguido de las coordenadas.");
+
+        do {
+            eleccion = sc.nextLine();
+            fila = sc.nextInt();
+            col = sc.nextInt();
+            if(eleccion.equalsIgnoreCase("CF")) {
+                tauler.descobreixCasella(fila, col);
+            } else if(eleccion.equalsIgnoreCase("CFM")) {
+                tauler.marcaMina(fila, col);
+            } else System.out.println("ELECCIÓN INCORRECTA");
+
+            if (tauler.descobert() || tauler.descoberta(fila, col) && tauler.hiHaMina(fila, col)) {
+                gameOver = true;
+                tauler.descobreixTauler();
+            }
+
+        } while (!gameOver);
+
+        sc.close();
+
+    }
+}
